@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RecordShop.Model;
 using RecordShop.Service;
 
 namespace RecordShop.Controllers
@@ -28,5 +29,13 @@ namespace RecordShop.Controllers
             var album = _albumService.GetAlbumById(id);
             return Ok(album);
         }
+
+        [HttpPost]
+        public IActionResult PostAlbum(Album album)
+        {
+            var returnAlbum = _albumService.PostAlbum(album);
+            return Created("/albums",album);
+        }
+
     }
 }

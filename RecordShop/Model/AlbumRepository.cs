@@ -17,11 +17,20 @@
             var album = RecordShopDbContext.Albums.FirstOrDefault(a => a.Id == id);
             return album;
         }
+
+        public Album PostAlbum(Album album)
+        {
+            RecordShopDbContext.Albums.Add(album);
+            RecordShopDbContext.SaveChanges();
+
+            return album;
+        }
     }
 
     public interface IAlbumRepository
     {
         Album GetAlbumById(int id);
         List<Album> GetAllAlbums();
+        Album PostAlbum(Album album);
     }
 }

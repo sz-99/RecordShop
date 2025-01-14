@@ -47,5 +47,16 @@ namespace RecordShopTests
 
 
         }
+
+        [Test]
+        public void PostAlbum_ReturnCreated()
+        {
+            //act
+            var result = _albumsController.PostAlbum(new Album());
+
+            //assert
+            result.Should().BeOfType<CreatedResult>();
+
+        }
     }
 }

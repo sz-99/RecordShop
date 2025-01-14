@@ -20,11 +20,17 @@ namespace RecordShop.Service
         {
             return _albumRepository.GetAlbumById(id);
         }
+
+        public Album PostAlbum(Album album)
+        {
+            return _albumRepository.PostAlbum(album);
+        }
     }
 
     public interface IAlbumService
     {
         Album GetAlbumById(int id);
         List<Album> GetAllAlbums();
+        Album PostAlbum(Album album);
     }
 }
