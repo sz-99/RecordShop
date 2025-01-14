@@ -52,6 +52,7 @@ namespace RecordShop.Controllers
         [HttpPost]
         public IActionResult PostAlbum(Album album)
         {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
             var returnAlbum = _albumService.PostAlbum(album);
             return Created("/albums",album);
         }
@@ -60,7 +61,7 @@ namespace RecordShop.Controllers
         [Route("{id}")]
         public IActionResult PutAlbum(int id, Album album)
         {
-            if (album == null) return BadRequest();
+            if (album == null || !ModelState.IsValid) return BadRequest(ModelState);
             var updatedAlbum = _albumService.PutAlbum(id, album);
             return Ok(updatedAlbum);
         }
