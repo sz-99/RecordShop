@@ -20,5 +20,13 @@ namespace RecordShop.Controllers
             var albums = _albumService.GetAllAlbums();
             return Ok(albums);
         }
+
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult GetAlbumById(int id) 
+        {
+            var album = _albumService.GetAlbumById(id);
+            return Ok(album);
+        }
     }
 }

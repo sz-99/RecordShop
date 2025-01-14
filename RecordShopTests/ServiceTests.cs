@@ -37,5 +37,20 @@ namespace RecordShopTests
             result.Should().BeEquivalentTo(expectedList);
 
         }
+
+        [Test]
+        public void GetAlbumById_ReturnsAlbum()
+        {
+            //arrange
+            _albumRepositoryMock.Setup(r => r.GetAlbumById(1)).Returns(new Album());
+            Album album= new ();
+
+            //act
+            var result = _albumService.GetAlbumById(1);
+
+            //assert
+            result.Should().BeEquivalentTo(album);
+
+        }
     }
 }

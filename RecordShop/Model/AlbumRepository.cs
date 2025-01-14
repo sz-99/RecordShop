@@ -3,7 +3,6 @@
     public class AlbumRepository :IAlbumRepository
     {
         private RecordShopDbContext RecordShopDbContext { get; set; }
-
         public AlbumRepository(RecordShopDbContext recordShopDbContext)
         {
             RecordShopDbContext = recordShopDbContext;
@@ -12,10 +11,17 @@
         {
             return RecordShopDbContext.Albums.ToList();
         }
+
+        public Album GetAlbumById(int id)
+        {
+            var album = RecordShopDbContext.Albums.FirstOrDefault(a => a.Id == id);
+            return album;
+        }
     }
 
     public interface IAlbumRepository
     {
+        Album GetAlbumById(int id);
         List<Album> GetAllAlbums();
     }
 }
