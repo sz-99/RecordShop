@@ -38,6 +38,15 @@
             return albumsByYear;
         }
 
+        public Album GetAlbumByName(string name)
+        {
+            bool albumExists = RecordShopDbContext.Albums.Any(a => a.Name == name);
+            if (!albumExists) return null;
+            Album albumToReturn = RecordShopDbContext.Albums.FirstOrDefault(a => a.Name == name);
+
+            return albumToReturn;
+        }
+
         public Album PostAlbum(Album album)
         {
             RecordShopDbContext.Albums.Add(album);
@@ -69,12 +78,15 @@
             RecordShopDbContext.SaveChanges();
             return true;
         }
+
+        
     }
 
     public interface IAlbumRepository
     {
         bool DeleteAlbum(int id);
         Album GetAlbumById(int id);
+        Album GetAlbumByName(string name);
         List<Album> GetAlbumsByArtist(string artist);
         List<Album> GetAlbumsByYear(int year);
         List<Album> GetAllAlbums();

@@ -48,6 +48,15 @@ namespace RecordShop.Controllers
             return Ok(albumsByYear);
 
         }
+        [HttpGet]
+        [Route("/album/{name}")]
+        public IActionResult GetAlbumInfoByName(string name)
+        {
+            Album album = _albumService.GetAlbumByName(name);
+            if (album == null) return BadRequest("album does not exist");
+            return Ok(album);
+        }
+
 
         [HttpPost]
         public IActionResult PostAlbum(Album album)
