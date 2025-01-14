@@ -3,6 +3,7 @@
 Welcome to the Record Shop backend! This project is designed to bring our outdated, paper-based inventory system into the modern era by implementing a fully functional backend API for managing our record shop's inventory.
 
 ## Endpoints
+## CRUD Operations
 ### get all albums 
 - GET method
 - /albums
@@ -19,7 +20,7 @@ Welcome to the Record Shop backend! This project is designed to bring our outdat
 - DELETE method
 - /albums/{id}
 
-### filters
+### Filters
 ### filter albums by artist
 - GET method
 - /albums/artist/{artist}
