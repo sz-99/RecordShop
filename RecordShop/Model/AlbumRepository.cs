@@ -18,6 +18,16 @@
             return album;
         }
 
+        public List<Album> GetAlbumsByArtist(string artist)
+        {
+            bool artistExists = RecordShopDbContext.Albums.Any(a => a.Artist.ToLower() == artist.ToLower());
+            if (!artistExists) return null;
+            var albumsByArtist = RecordShopDbContext.Albums
+                                                        .Where(a=>a.Artist.ToLower() == artist.ToLower())
+                                                        .ToList();
+            return albumsByArtist;
+        }
+
         public Album PostAlbum(Album album)
         {
             RecordShopDbContext.Albums.Add(album);
@@ -55,6 +65,7 @@
     {
         bool DeleteAlbum(int id);
         Album GetAlbumById(int id);
+        List<Album> GetAlbumsByArtist(string artist);
         List<Album> GetAllAlbums();
         Album PostAlbum(Album album);
         Album PutAlbum(int id, Album album);

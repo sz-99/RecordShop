@@ -21,6 +21,11 @@ namespace RecordShop.Service
             return _albumRepository.GetAlbumById(id);
         }
 
+        public List<Album> GetAlbumsByArtist(string artist)
+        {
+            return _albumRepository.GetAlbumsByArtist(artist);
+        }
+
         public Album PostAlbum(Album album)
         {
             return _albumRepository.PostAlbum(album);
@@ -41,6 +46,7 @@ namespace RecordShop.Service
     {
         bool DeleteAlbum(int id);
         Album GetAlbumById(int id);
+        List<Album> GetAlbumsByArtist(string artist);
         List<Album> GetAllAlbums();
         Album PostAlbum(Album album);
         Album PutAlbum(int id, Album album);

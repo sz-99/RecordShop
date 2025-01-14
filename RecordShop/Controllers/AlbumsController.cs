@@ -30,6 +30,15 @@ namespace RecordShop.Controllers
             return Ok(album);
         }
 
+        [HttpGet]
+        [Route("artist/{artist}")]
+        public IActionResult GetAlbumsByArtist(string artist)
+        {
+            var albumsByArtists = _albumService.GetAlbumsByArtist(artist);
+            if (albumsByArtists == null || albumsByArtists.Count == 0) return BadRequest("Artist does not exist.");
+            return Ok(albumsByArtists);
+        }
+
         [HttpPost]
         public IActionResult PostAlbum(Album album)
         {
