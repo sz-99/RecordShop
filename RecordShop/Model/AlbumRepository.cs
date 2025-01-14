@@ -26,9 +26,9 @@
             return album;
         }
 
-        public Album PutAlbum(Album album)
+        public Album PutAlbum(int id, Album album)
         {
-            Album? albumToUpdate = RecordShopDbContext.Albums.FirstOrDefault(a => a.Id == album.Id);
+            Album? albumToUpdate = RecordShopDbContext.Albums.FirstOrDefault(a => a.Id == id);
             if (albumToUpdate == null) return null;
 
             albumToUpdate.Name = album.Name;
@@ -46,6 +46,6 @@
         Album GetAlbumById(int id);
         List<Album> GetAllAlbums();
         Album PostAlbum(Album album);
-        Album PutAlbum(Album album);
+        Album PutAlbum(int id, Album album);
     }
 }

@@ -38,10 +38,11 @@ namespace RecordShop.Controllers
         }
 
         [HttpPut]
-        public IActionResult PutAlbum(Album album)
+        [Route("{id}")]
+        public IActionResult PutAlbum(int id, Album album)
         {
             if (album == null) return BadRequest();
-            var updatedAlbum = _albumService.PutAlbum(album);
+            var updatedAlbum = _albumService.PutAlbum(id, album);
             return Ok(updatedAlbum);
         }
     }

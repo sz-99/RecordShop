@@ -26,9 +26,9 @@ namespace RecordShop.Service
             return _albumRepository.PostAlbum(album);
         }
 
-        public Album PutAlbum(Album album)
+        public Album PutAlbum(int id, Album album)
         {
-            return _albumRepository.PutAlbum(album);
+            return _albumRepository.PutAlbum(id, album);
         }
     }
 
@@ -37,6 +37,6 @@ namespace RecordShop.Service
         Album GetAlbumById(int id);
         List<Album> GetAllAlbums();
         Album PostAlbum(Album album);
-        Album PutAlbum(Album album);
+        Album PutAlbum(int id, Album album);
     }
 }
