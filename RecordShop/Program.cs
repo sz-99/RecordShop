@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using RecordShop.Model;
 using RecordShop.Service;
+using Microsoft.EntityFrameworkCore.InMemory;
 
 namespace RecordShop
 {
@@ -16,7 +17,16 @@ namespace RecordShop
             builder.Services.AddScoped<IAlbumService, AlbumService>();
             builder.Services.AddScoped<IAlbumRepository, AlbumRepository>();
 
-            builder.Services.AddDbContext<RecordShopDbContext>(options => options.UseSqlServer(connectionString));
+            if (builder.Environment.IsDevelopment())
+            {
+                builder.Services.AddDbContext<RecordShopDbContext>(options =>
+                    options.UseInMemoryDatabase("InMemoryDb"));
+            }
+            else if (builder.Environment.IsProduction())
+            {
+                builder.Services.AddDbContext<RecordShopDbContext>(options =>
+                    options.UseSqlServer(connectionString));
+            }
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -27,11 +37,16 @@ namespace RecordShop
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+            //if (app.Environment.IsDevelopment())
+            //{
+            //    builder.Services.AddDbContext<RecordShopDbContext>(options => options.UseInMemoryDatabase("InMemoryDb"));
+            //    app.UseSwagger();
+            //    app.UseSwaggerUI();
+            //}
+            //else if(app.Environment.IsProduction())
+            //{
+            //    builder.Services.AddDbContext<RecordShopDbContext>(options => options.UseSqlServer(connectionString));
+            //}
 
             app.UseHttpsRedirection();
 
