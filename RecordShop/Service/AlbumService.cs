@@ -31,6 +31,11 @@ namespace RecordShop.Service
             return _albumRepository.GetAlbumsByYear(year);
         }
 
+        public Album GetAlbumByName(string name)
+        {
+            return _albumRepository.GetAlbumByName(name);
+        }
+
         public Album PostAlbum(Album album)
         {
             return _albumRepository.PostAlbum(album);
@@ -51,6 +56,7 @@ namespace RecordShop.Service
     {
         bool DeleteAlbum(int id);
         Album GetAlbumById(int id);
+        Album GetAlbumByName(string name);
         List<Album> GetAlbumsByArtist(string artist);
         List<Album> GetAlbumsByYear(int year);
         List<Album> GetAllAlbums();
