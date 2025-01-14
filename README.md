@@ -24,3 +24,11 @@ Welcome to the Record Shop backend! This project is designed to bring our outdat
 ### filter albums by artist
 - GET method
 - /albums/artist/{artist}
+
+### filter albums by year
+- GET method
+- /year/{year}
+
+### get album info by album name
+- GET method
+- /album/{name}
