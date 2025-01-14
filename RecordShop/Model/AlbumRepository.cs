@@ -39,10 +39,21 @@
 
             return albumToUpdate;
         }
+
+        public bool DeleteAlbum(int id)
+        {
+            Album? albumToDelete = RecordShopDbContext.Albums.FirstOrDefault(a => a.Id == id);
+            if (albumToDelete == null) return false;
+
+            RecordShopDbContext.Albums.Remove(albumToDelete);
+            RecordShopDbContext.SaveChanges();
+            return true;
+        }
     }
 
     public interface IAlbumRepository
     {
+        bool DeleteAlbum(int id);
         Album GetAlbumById(int id);
         List<Album> GetAllAlbums();
         Album PostAlbum(Album album);

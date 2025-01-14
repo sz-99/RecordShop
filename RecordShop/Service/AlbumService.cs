@@ -30,10 +30,16 @@ namespace RecordShop.Service
         {
             return _albumRepository.PutAlbum(id, album);
         }
+
+        public bool DeleteAlbum(int id)
+        {
+            return _albumRepository.DeleteAlbum(id);
+        }
     }
 
     public interface IAlbumService
     {
+        bool DeleteAlbum(int id);
         Album GetAlbumById(int id);
         List<Album> GetAllAlbums();
         Album PostAlbum(Album album);

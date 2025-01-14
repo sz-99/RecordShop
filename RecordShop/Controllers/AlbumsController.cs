@@ -45,5 +45,13 @@ namespace RecordShop.Controllers
             var updatedAlbum = _albumService.PutAlbum(id, album);
             return Ok(updatedAlbum);
         }
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult DeleteAlbum(int id)
+        {
+            var sucess = _albumService.DeleteAlbum(id);
+            if (sucess) return Ok();
+            return BadRequest();
+        }
     }
 }
