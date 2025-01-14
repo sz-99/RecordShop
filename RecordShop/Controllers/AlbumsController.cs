@@ -39,6 +39,16 @@ namespace RecordShop.Controllers
             return Ok(albumsByArtists);
         }
 
+        [HttpGet]
+        [Route("year/{year}")]
+        public IActionResult GetAlbumsByYear(int year)
+        {
+            var albumsByYear = _albumService.GetAlbumsByYear(year);
+            if (albumsByYear == null || albumsByYear.Count == 0) return BadRequest("No albums released in this year in stock");
+            return Ok(albumsByYear);
+
+        }
+
         [HttpPost]
         public IActionResult PostAlbum(Album album)
         {

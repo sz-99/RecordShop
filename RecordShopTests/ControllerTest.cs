@@ -65,14 +65,21 @@ namespace RecordShopTests
             //arrange 
             Album album = new Album();
             Album nullAlbum = null;
-            _albumServiceMock.Setup(s => s.PutAlbum(album)).Returns(nullAlbum);
+            _albumServiceMock.Setup(s => s.PutAlbum(1, album)).Returns(nullAlbum);
 
             //act
-            var result = _albumsController.PutAlbum(nullAlbum);
+            var result = _albumsController.PutAlbum(1, nullAlbum);
 
             //assert
             result.Should().BeOfType<BadRequestResult>();
 
+        }
+        [Test]
+        public void FilterAlbumsByYear_CallsMethodOnce()
+        {
+            _albumsController.GetAlbumsByYear(1985);
+
+            _albumServiceMock.Verify(s => s.GetAlbumsByYear(1985), Times.Once());
         }
     }
 }
