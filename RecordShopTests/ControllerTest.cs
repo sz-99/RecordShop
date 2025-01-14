@@ -58,5 +58,21 @@ namespace RecordShopTests
             result.Should().BeOfType<CreatedResult>();
 
         }
+
+        [Test]
+        public void PutAlbum_nullReturnBadRequest()
+        {
+            //arrange 
+            Album album = new Album();
+            Album nullAlbum = null;
+            _albumServiceMock.Setup(s => s.PutAlbum(album)).Returns(nullAlbum);
+
+            //act
+            var result = _albumsController.PutAlbum(nullAlbum);
+
+            //assert
+            result.Should().BeOfType<BadRequestResult>();
+
+        }
     }
 }

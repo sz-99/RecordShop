@@ -37,5 +37,12 @@ namespace RecordShop.Controllers
             return Created("/albums",album);
         }
 
+        [HttpPut]
+        public IActionResult PutAlbum(Album album)
+        {
+            if (album == null) return BadRequest();
+            var updatedAlbum = _albumService.PutAlbum(album);
+            return Ok(updatedAlbum);
+        }
     }
 }

@@ -25,6 +25,11 @@ namespace RecordShop.Service
         {
             return _albumRepository.PostAlbum(album);
         }
+
+        public Album PutAlbum(Album album)
+        {
+            return _albumRepository.PutAlbum(album);
+        }
     }
 
     public interface IAlbumService
@@ -32,5 +37,6 @@ namespace RecordShop.Service
         Album GetAlbumById(int id);
         List<Album> GetAllAlbums();
         Album PostAlbum(Album album);
+        Album PutAlbum(Album album);
     }
 }
