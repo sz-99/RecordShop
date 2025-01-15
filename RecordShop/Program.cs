@@ -36,17 +36,18 @@ namespace RecordShop
             
             var app = builder.Build();
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<RecordShopDbContext>();
+                SeedDatabase.DatabaseSeeding(context);
+            }
             // Configure the HTTP request pipeline.
-            //if (app.Environment.IsDevelopment())
-            //{
-            //    builder.Services.AddDbContext<RecordShopDbContext>(options => options.UseInMemoryDatabase("InMemoryDb"));
-            //    app.UseSwagger();
-            //    app.UseSwaggerUI();
-            //}
-            //else if(app.Environment.IsProduction())
-            //{
-            //    builder.Services.AddDbContext<RecordShopDbContext>(options => options.UseSqlServer(connectionString));
-            //}
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+            
 
             app.UseHttpsRedirection();
 
