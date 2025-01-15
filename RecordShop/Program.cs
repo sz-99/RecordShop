@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using RecordShop.Model;
 using RecordShop.Service;
 
@@ -22,8 +23,11 @@ namespace RecordShop
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            
-            
+
+            builder.Services.AddHealthChecks()
+                                    .AddCheck("App Running", () => HealthCheckResult.Healthy("The application is running.")).AddDbContextCheck<RecordShopDbContext>("Database");
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -36,6 +40,8 @@ namespace RecordShop
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
+
+            app.MapHealthChecks("/health");
 
 
             app.MapControllers();
