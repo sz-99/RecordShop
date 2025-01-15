@@ -72,7 +72,7 @@ namespace RecordShopTests
             var result = _albumsController.PutAlbum(1, nullAlbum);
 
             //assert
-            result.Should().BeOfType<BadRequestResult>();
+            result.Should().BeOfType<BadRequestObjectResult>();
 
         }
         [Test]
