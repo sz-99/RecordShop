@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RecordShop.Model;
 using RecordShop.Service;
 
@@ -58,7 +59,7 @@ namespace RecordShop.Controllers
             return Ok(album);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult PostAlbum(Album album)
         {
@@ -66,7 +67,7 @@ namespace RecordShop.Controllers
             var returnAlbum = _albumService.PostAlbum(album);
             return Created("/albums",album);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         [Route("{id}")]
         public IActionResult PutAlbum(int id, Album album)
@@ -75,12 +76,14 @@ namespace RecordShop.Controllers
             var updatedAlbum = _albumService.PutAlbum(id, album);
             return Ok(updatedAlbum);
         }
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         [Route("{id}")]
         public IActionResult DeleteAlbum(int id)
         {
-            var sucess = _albumService.DeleteAlbum(id);
-            if (sucess) return Ok();
+             var sucess = _albumService.DeleteAlbum(id);
+             if (sucess) return Ok();
+            
             return BadRequest();
         }
     }

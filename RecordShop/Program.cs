@@ -4,6 +4,9 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using RecordShop.Model;
 using RecordShop.Service;
 using Microsoft.EntityFrameworkCore.InMemory;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace RecordShop
 {
@@ -17,6 +20,8 @@ namespace RecordShop
             // Add services to the container.
             builder.Services.AddScoped<IAlbumService, AlbumService>();
             builder.Services.AddScoped<IAlbumRepository, AlbumRepository>();
+
+          
 
             if (builder.Environment.IsDevelopment())
             {
@@ -37,6 +42,27 @@ namespace RecordShop
             builder.Services.AddHealthChecks()
                                     .AddCheck("App Running", () => HealthCheckResult.Healthy("The application is running.")).AddDbContextCheck<RecordShopDbContext>("Database");
 
+            builder.Services
+              .AddAuthentication(options => {
+                  options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                  options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+              })
+              .AddJwtBearer(
+              options =>
+              {
+                  options.TokenValidationParameters = new TokenValidationParameters
+                  {
+                      ValidateIssuer = true,
+                      ValidateAudience = true,
+                      ValidateLifetime = false,
+                      ValidateIssuerSigningKey = true,
+                      ValidIssuer = "northcoders",
+                      ValidAudience = "northcoders",
+                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ExtremelySuperLongSecretKeyForRecordShopAuthentication")),
+                      RoleClaimType = "roles"
+                  };
+                  options.MapInboundClaims = false;
+              });
 
             var app = builder.Build();
 
@@ -55,7 +81,9 @@ namespace RecordShop
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            
 
             app.MapHealthChecks("/health");
 
